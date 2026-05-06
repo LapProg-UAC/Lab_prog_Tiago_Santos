@@ -180,13 +180,13 @@ def hashing_folding(prescription:dict, table_size:int, keyedhash:int)->list:
         hashed_dict.append(hashed_key)
     return hashed_dict
 
-medicines = convert_txt_list("medicines.txt")
+medicines = convert_txt_list("projeto_remedios/medicines.txt")
 matriz = generate_intercection_matriz(medicines)
-gerar_excel("interacoes.xlsx", medicines, matriz)
+gerar_excel("projeto_remedios/interacoes.xlsx", medicines, matriz)
 prescription = creat_prescription(medicines)
 print(danger_avaliation(prescription,matriz,medicines))
 encripted_prescription = encription_utent_number(prescription, 3)
 print(encripted_prescription)
-edit_json(encripted_prescription, "prescription.json")
+edit_json(encripted_prescription, "projeto_remedios/prescription.json")
 print(description_utent_number(encripted_prescription, 3))
 print([hex(hexadecimal) for hexadecimal in hashing_folding((prescription), 256, 123987)])
