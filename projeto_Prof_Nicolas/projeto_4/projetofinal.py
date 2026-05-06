@@ -5,28 +5,28 @@ from matplotlib.animation import FuncAnimation
 import time
 
 # LOAD MODEL 
-mesh = trimesh.load('Female Head.obj', process=True)
+mesh = trimesh.load('projeto_Prof_Nicolas/projeto_4/Female_Head.obj', process=True)
 
-# corrigir orientação
+#meter na vertical
 R = trimesh.transformations.rotation_matrix(
     np.radians(90),
     [1, 0, 0]
 )
 mesh.apply_transform(R)
 
-# centralizar e normalizar
+#centralizar e escalar
 mesh.vertices -= mesh.center_mass
 mesh.vertices /= mesh.scale
 
 base = mesh.vertices
 faces = mesh.faces
 
-# CAMADAS
+#diferentes camadas
 bone = base * 0.95
 muscle = base * 0.98
 skin = base
 
-# FIGURA
+# Criar figura e eixo 3D
 fig = plt.figure(figsize=(6,6))
 ax = fig.add_subplot(111, projection='3d')
 
@@ -42,6 +42,7 @@ def draw(v, color, alpha, z):
         zorder=z
     )
 
+# Função de atualização para animação
 def update(frame):
     ax.clear()
 
@@ -65,7 +66,7 @@ start_time = time.time()
 
 ani = FuncAnimation(fig, update, frames=60, interval=30)
 
-ani.save("female_head_layers.gif", writer="pillow", fps=30)
+ani.save("projeto_Prof_Nicolas/projeto_4/female_head_layers.gif", writer="pillow", fps=30)
 
 end_time = time.time()
 

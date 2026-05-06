@@ -1,1 +1,5 @@
 #Meu trabahlo de laboratorio de programaçao
+source venv/bin/activate
+ctrl + shit + p
+Python: Select Interpreter
+./venv/bin/python

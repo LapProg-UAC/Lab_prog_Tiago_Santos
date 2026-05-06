@@ -2,6 +2,13 @@ import datetime as dt
 import random as r
 import os
 
+# Global variables to store the numbers and their parity
+parity_file = 'projeto_Prof_Geronimo/projeto paridade/parity.txt'
+numbers_file = 'projeto_Prof_Geronimo/projeto paridade/numbers.txt'
+
+random_seed = dt.datetime.now().microsecond
+r.seed(random_seed)
+
 def generate_files() -> None:
     """
     creat two files, one with random numbers and another with their parity (0 for even and 1 for odd).
@@ -11,10 +18,10 @@ def generate_files() -> None:
     return:
         None
     """
-    if os.path.exists('parity.txt'):
-        os.remove('parity.txt')
-    if os.path.exists('numbers.txt'):
-        os.remove('numbers.txt')
+    if os.path.exists(parity_file):
+        os.remove(parity_file)
+    if os.path.exists(numbers_file):
+        os.remove(numbers_file)
     listnum.clear()
     listparity.clear()
     for i in range(r.randint(50,65)):
@@ -23,11 +30,11 @@ def generate_files() -> None:
     for i in listnum:
         listparity.append(int(i)%2)
     print(listparity)
-    with open('parity.txt','w') as file:
+    with open(parity_file,'w') as file:
         for i in listparity:
             file.write(str(i)+'\n')
     print('Arquivo criado com sucesso!')
-    with open('numbers.txt','w') as file:
+    with open(numbers_file,'w') as file:
         for i in listnum:
             file.write(str(i)+'\n')
     print('Arquivo criado com sucesso!')
@@ -39,17 +46,17 @@ def setup() -> None:
     listparity = []
 
     """
-    Setup function that checks if the files 'parity.txt' and 'numbers.txt' exist. If they do, it reads the contents of the files and stores them in the lists 'listparity' and 'listnum', respectively. If the files do not exist, it calls the 'generate_files()' function to create them.
+    Setup function that checks if the files parity_file and 'numbers.txt' exist. If they do, it reads the contents of the files and stores them in the lists 'listparity' and 'listnum', respectively. If the files do not exist, it calls the 'generate_files()' function to create them.
     param:
         None
     return:
         None
     """
-    if os.path.exists('parity.txt') and os.path.exists('numbers.txt'):
-        with open('parity.txt','r') as file:
+    if os.path.exists(parity_file) and os.path.exists(numbers_file):
+        with open(parity_file,'r') as file:
             listparity = file.read().strip().split('\n')
             listparity = [int(i) for i in listparity]
-        with open('numbers.txt','r') as file:
+        with open(numbers_file,'r') as file:
             listnum = file.read().strip().split('\n')
             listnum = [int(i) for i in listnum]
         print(listparity)
@@ -71,19 +78,19 @@ def main() -> bool:
     print("1- Ler arquivos\n2- Gerar novos arquivos\n3 - Verificar paridade\n4 - Sair")
     option = int(input("Digite a opção desejada: "))
     if option == 1:
-        with open('parity.txt','r') as file:
+        with open(parity_file,'r') as file:
             listparity = file.read().strip().split('\n')
-        with open('numbers.txt','r') as file:
+        with open(numbers_file,'r') as file:
             listnum = file.read().strip().split('\n')
         print(listparity)
         print(listnum)
     elif option == 2:
         generate_files()
     elif option == 3:
-        with open('parity.txt','r') as file:
+        with open(parity_file,'r') as file:
             listparity = file.read().strip().split('\n')
             listparity = [int(i) for i in listparity]
-        with open('numbers.txt','r') as file:
+        with open(numbers_file,'r') as file:
             listnum = file.read().strip().split('\n')
             listnum = [int(i) for i in listnum]
         for i in range(len(listnum)):
